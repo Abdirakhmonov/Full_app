@@ -1,14 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:full_app/providers/settings_notifier.dart';
 import 'package:full_app/utils/routes_utild.dart';
 import 'package:full_app/viewmodel/settings_controller.dart';
+import 'package:full_app/views/screens/courses_info_screen.dart';
 import 'package:full_app/views/screens/main_page.dart';
 import 'package:full_app/views/screens/settings_screen.dart';
 import 'package:full_app/views/screens/todos_screen.dart';
 
 import 'data/local_data.dart';
-
+import 'models/course_model.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,8 +39,16 @@ class MainRunner extends StatelessWidget {
             animation: settingsNotifier,
             builder: (context, child) {
               return MaterialApp(
-                routes: {
-                  Routes.settingsRoute: (context) => const SettingsScreen(),
+                // routes: {
+                //   RouteNames.settingsRoute: (context) => const SettingsScreen(),
+                // },
+                onGenerateRoute: (settings) {
+                  if (settings.name == "/courseInfo") {
+                    return MaterialPageRoute(
+                        builder: (context) => CourseInfoScreen(
+                            course: settings.arguments as Course));
+                  }
+                  return null;
                 },
                 debugShowCheckedModeBanner: false,
                 darkTheme: ThemeData.dark(useMaterial3: true),

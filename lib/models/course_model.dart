@@ -1,102 +1,43 @@
-import 'package:json_annotation/json_annotation.dart';
-part 'course_model.g.dart';
+import 'lesson_model.dart';
 
-@JsonSerializable()
-
-//COURSES
 class Course {
-  final String? description;
-  final String? imageUrl;
-  final List<Lesson> lessons;
-  final String? title;
+  String courseId;
+  String courseTitle;
+  String courseDescription;
+  String courseImageUrl;
+  List<Lesson> courseLessons;
+  num coursePrice;
 
   Course({
-    required this.description,
-    required this.imageUrl,
-    required this.lessons,
-    required this.title,
+    required this.courseId,
+    required this.courseTitle,
+    required this.courseDescription,
+    required this.courseImageUrl,
+    required this.courseLessons,
+    required this.coursePrice,
   });
 
   factory Course.fromJson(Map<String, dynamic> json) {
-    return _$CourseFromJson(json);
+    return Course(
+      courseId: json['id'],
+      courseTitle: json['course-title'],
+      courseDescription: json['course-description'],
+      courseImageUrl: json['course-image'],
+      courseLessons: (json['course-lessons'] as List)
+          .map((lesson) => Lesson.fromJson(lesson as Map<String, dynamic>))
+          .toList(),
+      coursePrice: json['course-price'],
+    );
   }
 
   Map<String, dynamic> toJson() {
-    return _$CourseToJson(this);
-  }
-}
-
-//****************************************************************************************************
-
-@JsonSerializable()
-//LESSONS
-class Lesson {
-  final String courseId;
-  final String description;
-  final List<Quiz> quizes;
-  final String? videoUrl;
-
-  Lesson({
-    required this.courseId,
-    required this.description,
-    required this.quizes,
-    required this.videoUrl,
-  });
-
-  factory Lesson.fromJson(Map<String, dynamic> json) {
-    return _$LessonFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$LessonToJson(this);
-  }
-}
-
-//*****************************************************************************************************
-
-@JsonSerializable()
-//QUIZ
-class Quiz {
-  final int correct;
-  final List<Options> options;
-  final String? question;
-
-  Quiz({
-    required this.correct,
-    required this.options,
-    required this.question,
-  });
-
-  factory Quiz.fromJson(Map<String, dynamic> json) {
-    return _$QuizFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$QuizToJson(this);
-  }
-}
-
-//********************************************************************************************************
-
-@JsonSerializable()
-
-//OPTIONS
-class Options {
-  final String? answer1;
-  final String? answer2;
-  final String? answer3;
-
-  Options({
-    required this.answer1,
-    required this.answer2,
-    required this.answer3,
-  });
-
-  factory Options.fromJson(Map<String, dynamic> json) {
-    return _$OptionsFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$OptionsToJson(this);
+    return {
+      'id': courseId,
+      'course-title': courseTitle,
+      'course-description': courseDescription,
+      'course-image': courseImageUrl,
+      'course-lessons': courseLessons,
+      'course-price': coursePrice,
+    };
   }
 }
