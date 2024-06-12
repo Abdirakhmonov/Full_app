@@ -1,3 +1,11 @@
+#Search and Theme.dark.lifht
+
+
+
+https://github.com/Abdirakhmonov/Full_app/assets/156057814/dcf72434-cecb-4ace-945f-d470574b29ea
+
+
+
 #Registration and Login Pages
 
 
