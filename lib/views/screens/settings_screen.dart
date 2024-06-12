@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:full_app/views/widgets/drawer_page.dart';
 
@@ -18,6 +19,7 @@ class _SettingsPageState extends State<SettingsScreen> {
     setState(() => pickerColor = color);
   }
 
+  bool toggle = true;
   @override
   Widget build(BuildContext context) {
     final settingsNotifier = SettingsNotifier.of(context);
@@ -36,22 +38,14 @@ class _SettingsPageState extends State<SettingsScreen> {
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
-            ListenableBuilder(
-              listenable: settingsNotifier,
-              builder: (context, child) {
-                return SwitchListTile(
-                  title: Text(
-                    "Dark mode",
-                    style: TextStyle(
-                      fontSize: settingsNotifier.sizeText.size,
-                      color: settingsNotifier.sizeText.color,
-                    ),
-                  ),
-                  value: settingsNotifier.appTheme.themeMode == ThemeMode.dark,
-                  onChanged: (value) {
-                    settingsNotifier.toggleTheme(value);
-                  },
-                );
+            SwitchListTile(
+              title:
+                  toggle ? const Text("Night mode") : const Text("Light mode"),
+              value: toggle,
+              onChanged: (value) {
+                toggle = value;
+                AdaptiveTheme.of(context).toggleThemeMode(useSystem: value);
+                setState(() {});
               },
             ),
             Text(

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import '../../models/todo_model.dart';
 import '../../viewmodel/todo_viewmodel.dart';
 import '../widgets/manage_todo.dart';
+import '../widgets/searchviewdelegate.dart';
 
 class TodosScreen extends StatefulWidget {
   final Function(int) onItemTapped;
   final int currentIndex;
 
-  TodosScreen({super.key, required this.onItemTapped, required this.currentIndex});
+  TodosScreen(
+      {super.key, required this.onItemTapped, required this.currentIndex});
 
   @override
   State<TodosScreen> createState() => _StatisticScreenState();
@@ -108,8 +110,19 @@ class _StatisticScreenState extends State<TodosScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Todos Screen", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+        title: const Text("Todos Screen",
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
         centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () async {
+                String? result = await showSearch(
+                    context: context,
+                    delegate:
+                        SearchViewDelegate(todos: await todosViewModel.list));
+              },
+              icon: Icon(Icons.search))
+        ],
       ),
       body: Column(
         children: [
@@ -129,74 +142,78 @@ class _StatisticScreenState extends State<TodosScreen> {
               final todos = snapshot.data!;
               return todos.isEmpty
                   ? const Center(
-                child: Text("Rejalar mavjud emas, iltimos qo'shing"),
-              )
+                      child: Text("Rejalar mavjud emas, iltimos qo'shing"),
+                    )
                   : Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: SizedBox(
-                  height: 300, // Adjust height as needed
-                  child: ListView.separated(
-                    itemCount: todos.length,
-                    itemBuilder: (context, index) {
-                      final todo = todos[index];
-                      return ListTile(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          side: const BorderSide(color: Colors.amber),
-                        ),
-                        leading: IconButton(
-                          onPressed: () {
-                            changeStatus(todo.id, !todo.isCompleted);
-                          },
-                          icon: Icon(
-                            todo.isCompleted ? Icons.check_circle : Icons.circle_outlined,
-                            color: todo.isCompleted ? Colors.green : null,
-                          ),
-                        ),
-                        title: Text(
-                          todo.title,
-                          style: TextStyle(
-                            decoration: todo.isCompleted ? TextDecoration.lineThrough : TextDecoration.none,
-                            decorationThickness: 2,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 20,
-                          ),
-                        ),
-                        subtitle: Text(
-                          todo.date,
-                          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                editTodo(todo);
-                              },
-                              icon: const Icon(Icons.edit),
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                deleteTodo(todo);
-                              },
-                              icon: const Icon(
-                                Icons.delete,
-                                color: Colors.red,
+                      padding: const EdgeInsets.all(10.0),
+                      child: SizedBox(
+                        height: 700, // Adjust height as needed
+                        child: ListView.separated(
+                          itemCount: todos.length,
+                          itemBuilder: (context, index) {
+                            final todo = todos[index];
+                            return ListTile(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side: const BorderSide(color: Colors.amber),
                               ),
-                            ),
-                          ],
+                              leading: IconButton(
+                                onPressed: () {
+                                  changeStatus(todo.id, !todo.isCompleted);
+                                },
+                                icon: Icon(
+                                  todo.isCompleted
+                                      ? Icons.check_circle
+                                      : Icons.circle_outlined,
+                                  color: todo.isCompleted ? Colors.green : null,
+                                ),
+                              ),
+                              title: Text(
+                                todo.title,
+                                style: TextStyle(
+                                  decoration: todo.isCompleted
+                                      ? TextDecoration.lineThrough
+                                      : TextDecoration.none,
+                                  decorationThickness: 2,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              subtitle: Text(
+                                todo.date,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w500, fontSize: 16),
+                              ),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      editTodo(todo);
+                                    },
+                                    icon: const Icon(Icons.edit),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      deleteTodo(todo);
+                                    },
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return const SizedBox(height: 10);
+                          },
                         ),
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return const SizedBox(height: 10);
-                    },
-                  ),
-                ),
-              );
+                      ),
+                    );
             },
           ),
-
         ],
       ),
       floatingActionButton: FloatingActionButton(

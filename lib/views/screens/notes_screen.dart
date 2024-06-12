@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:full_app/utils/note_extension.dart';
 import 'package:full_app/views/widgets/manage_note.dart';
 import 'package:full_app/views/widgets/note_item.dart';
+import 'package:full_app/views/widgets/search_notes.dart';
 
 import '../../models/note_model.dart';
 import '../../utils/routes_utild.dart';
@@ -101,33 +102,17 @@ class _HomeScreenState extends State<NotesScreen> {
             onPressed: addNote,
             icon: const Icon(Icons.add),
           ),
+          IconButton(onPressed: ()async{
+            String? result = await showSearch(
+                context: context,
+                delegate:
+                SearchViewDelegateNotes(notes: await notesViewModel.list(selectedDate)));
+          }, icon: Icon(Icons.search))
         ],
       ),
       body: Column(
         children: [
-          const SizedBox(height: 20),
-          TextButton(
-            onPressed: () async {
-              final response = await showDatePicker(
-                context: context,
-                firstDate: DateTime(2000),
-                lastDate: DateTime(3000),
-                initialDate: selectedDate,
-              );
-              if (response != null) {
-                selectedDate = response;
-                setState(() {});
-              }
-            },
-            child: Text(
-              selectedDate.format(),
-              style: const TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-          ),
+        
           const SizedBox(height: 20),
           Expanded(
             child: FutureBuilder(

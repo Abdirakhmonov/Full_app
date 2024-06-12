@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:full_app/utils/note_extension.dart';
 
 import '../../models/note_model.dart';
 
@@ -25,6 +26,7 @@ class NoteItem extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        subtitle: Text(note.date.format()),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

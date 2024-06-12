@@ -1,6 +1,6 @@
 extension DateTimeExtensions on DateTime {
   String format() {
-    return "${months[month - 1]}, $year";
+    return "$day,${months[month - 1]}";
   }
 }
 List<String> months = [
