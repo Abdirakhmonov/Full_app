@@ -77,11 +77,13 @@ class _StatisticScreenState extends State<StatisticScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: widget.currentIndex,
         selectedItemColor: Colors.green,
+        unselectedItemColor: Colors.amber,
         onTap: widget.onItemTapped,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
               icon: Icon(Icons.stacked_bar_chart), label: "Statistic"),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favorite"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
       ),

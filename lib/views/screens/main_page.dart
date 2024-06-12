@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:full_app/views/screens/favorite_screen.dart';
 import 'package:full_app/views/screens/profile_screen.dart';
 import 'package:full_app/views/screens/statistic_screen.dart';
 import 'home_screen.dart';
@@ -27,6 +28,7 @@ class _HomePageState extends State<HomePage> {
         HomeScreen(onItemTapped: _onItemTapped, currentIndex: _currentIndex),
         StatisticScreen(
             onItemTapped: _onItemTapped, currentIndex: _currentIndex),
+        FavoriteScreen(onItemTapped: _onItemTapped, currentIndex: _currentIndex,),
         ProfileScreen(onItemTapped: _onItemTapped, currentIndex: _currentIndex),
       ],
     );

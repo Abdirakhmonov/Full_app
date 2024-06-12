@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:full_app/views/screens/cart_screen.dart';
+import 'package:full_app/views/screens/favorite_screen.dart';
 
 import '../../models/course_model.dart';
+import '../../viewmodel/cart_viewmodel.dart';
 
 class CourseInfoScreen extends StatefulWidget {
   final Course course;
@@ -13,12 +16,27 @@ class CourseInfoScreen extends StatefulWidget {
 }
 
 class _CourseInfoScreenState extends State<CourseInfoScreen> {
+  bool isPressed = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.course.courseTitle),
         centerTitle: false,
+        actions: [
+          IconButton(
+            onPressed: () {
+              isPressed = true;
+              CartViewModel().addFav(widget.course);
+              setState(() {});
+            },
+            icon: Icon(
+              isPressed ? Icons.favorite : Icons.favorite_border,
+              color: Colors.red,
+            ),
+          ),
+        ],
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
