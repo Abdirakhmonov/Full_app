@@ -1,3 +1,13 @@
+#AppLocalizations changeLanguage
+
+
+https://github.com/Abdirakhmonov/Full_app/assets/156057814/886de89e-f9c2-4c6e-b3e6-ddcec81e2440
+
+
+
+
+
+
 #Search and Theme.dark.lifht
 
 
