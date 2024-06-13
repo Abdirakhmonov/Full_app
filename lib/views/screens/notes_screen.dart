@@ -7,6 +7,7 @@ import 'package:full_app/views/widgets/search_notes.dart';
 import '../../models/note_model.dart';
 import '../../utils/routes_utild.dart';
 import '../../viewmodel/notes_viewmodel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NotesScreen extends StatefulWidget {
   const NotesScreen({super.key});
@@ -69,13 +70,13 @@ class _HomeScreenState extends State<NotesScreen> {
               onPressed: () {
                 Navigator.pop(context, false);
               },
-              child: const Text("Bekor qilish"),
+              child:  Text(AppLocalizations.of(context)!.cancel),
             ),
             FilledButton(
               onPressed: () {
                 Navigator.pop(context, true);
               },
-              child: const Text("Ha, ishonchim komil"),
+              child:  Text(AppLocalizations.of(context)!.save),
             ),
           ],
         );
@@ -92,8 +93,8 @@ class _HomeScreenState extends State<NotesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Notes",
+        title:  Text(
+          AppLocalizations.of(context)!.notesScreen,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
         ),
         centerTitle: true,

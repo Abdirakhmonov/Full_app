@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:full_app/utils/note_extension.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../models/note_model.dart';
 
 class ManageNoteScreen extends StatefulWidget {
@@ -34,7 +34,7 @@ class _ManageExpenseScreenState extends State<ManageNoteScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.notes == null ? "Eslatma kiritish" : "Eslatma tahrirlash",
+          widget.notes == null ? AppLocalizations.of(context)!.addTask : AppLocalizations.of(context)!.editTask,
         ),
         actions: [
           IconButton(

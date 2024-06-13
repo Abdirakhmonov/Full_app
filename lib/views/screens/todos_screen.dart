@@ -4,7 +4,7 @@ import '../../models/todo_model.dart';
 import '../../viewmodel/todo_viewmodel.dart';
 import '../widgets/manage_todo.dart';
 import '../widgets/searchviewdelegate.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class TodosScreen extends StatefulWidget {
   final Function(int) onItemTapped;
   final int currentIndex;
@@ -110,7 +110,7 @@ class _StatisticScreenState extends State<TodosScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Todos Screen",
+        title:  Text(AppLocalizations.of(context)!.todosScreen,
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
         centerTitle: true,
         actions: [

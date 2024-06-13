@@ -1,5 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:full_app/providers/localizations_notifier.dart';
 import 'package:full_app/providers/settings_notifier.dart';
 import 'package:full_app/services/registr_service.dart';
 import 'package:full_app/utils/my_theme.dart';
@@ -11,6 +12,8 @@ import 'package:full_app/views/screens/main_page.dart';
 import 'package:full_app/views/screens/registr_screens.dart';
 import 'package:full_app/views/screens/settings_screen.dart';
 import 'package:full_app/views/screens/todos_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 import 'data/local_data.dart';
 import 'models/course_model.dart';
@@ -40,6 +43,7 @@ class MainRunner extends StatefulWidget {
 class _MainRunnerState extends State<MainRunner> {
   final authHttpServices = AuthHttpService();
   bool isLoggedIn = false;
+  final LocaleController _localeController = LocaleController();
 
   @override
   void initState() {
@@ -59,30 +63,41 @@ class _MainRunnerState extends State<MainRunner> {
         dark: MyThemMode.nightTheme,
         initial: AdaptiveThemeMode.system,
         builder: (theme, darkTheme) {
-          return SettingsNotifier(
-            settingsController: widget.settingsController,
-            child: Builder(
-              builder: (context) {
-                final settingsNotifier = SettingsNotifier.of(context);
-                return AnimatedBuilder(
-                  animation: settingsNotifier,
-                  builder: (context, child) {
-                    return MaterialApp(
-                      theme: theme,
-                      darkTheme: darkTheme,
-                      onGenerateRoute: (settings) {
-                        if (settings.name == "/courseInfo") {
-                          return MaterialPageRoute(
-                              builder: (context) => CourseInfoScreen(
-                                  course: settings.arguments as Course));
-                        }
-                        return null;
-                      },
-                      debugShowCheckedModeBanner: false,
-                      themeMode: settingsNotifier.appTheme.themeMode,
-                      home: isLoggedIn ? const HomePage() : LoginPage(),
-                    );
-                  },
+          return ChangeNotifierProvider(
+            create: (_) => _localeController,
+            child: Consumer<LocaleController>(
+              builder: (context, localeController, _) {
+                return SettingsNotifier(
+                  settingsController: widget.settingsController,
+                  child: Builder(
+                    builder: (context) {
+                      final settingsNotifier = SettingsNotifier.of(context);
+                      return AnimatedBuilder(
+                        animation: settingsNotifier,
+                        builder: (context, child) {
+                          return MaterialApp(
+                            localizationsDelegates:
+                                AppLocalizations.localizationsDelegates,
+                            locale: localeController.locale,
+                            supportedLocales: AppLocalizations.supportedLocales,
+                            theme: theme,
+                            darkTheme: darkTheme,
+                            onGenerateRoute: (settings) {
+                              if (settings.name == "/courseInfo") {
+                                return MaterialPageRoute(
+                                    builder: (context) => CourseInfoScreen(
+                                        course: settings.arguments as Course));
+                              }
+                              return null;
+                            },
+                            debugShowCheckedModeBanner: false,
+                            themeMode: settingsNotifier.appTheme.themeMode,
+                            home: isLoggedIn ? const HomePage() : LoginPage(),
+                          );
+                        },
+                      );
+                    },
+                  ),
                 );
               },
             ),

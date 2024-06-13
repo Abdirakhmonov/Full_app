@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/drawer_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileScreen extends StatefulWidget {
   final Function(int) onItemTapped;
@@ -14,7 +15,6 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   List infos = ["Abdirakhmanov", "Akromjon", "+998991234567"];
-  List infos2 = ["Surname:", "Name:", "Phone:"];
 
   TextEditingController surnameController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -37,8 +37,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       drawer: const DrawerPage(),
       appBar: AppBar(
-        title: const Text(
-          "Profile Screen",
+        title:  Text(
+          AppLocalizations.of(context)!.profileScreen,
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -62,8 +62,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const SizedBox(
               height: 20,
             ),
-            const Text(
-              "About Me",
+             Text(
+                AppLocalizations.of(context)!.aboutMe,
               style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -77,6 +77,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: ListView.separated(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   itemBuilder: (context, index) {
+                    List infos2 = [AppLocalizations.of(context)!.surname, AppLocalizations.of(context)!.name, AppLocalizations.of(context)!.phone];
+
                     return Text(
                       "${infos2[index]}   ${infos[index]}",
                       style: const TextStyle(
@@ -141,8 +143,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       );
                     });
               },
-              child: const Text(
-                "Edit profile",
+              child:  Text(
+                AppLocalizations.of(context)!.editProfile,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
             ),
@@ -154,12 +156,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         selectedItemColor: Colors.green,
         unselectedItemColor: Colors.amber,
         onTap: widget.onItemTapped,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+        items:  [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: AppLocalizations.of(context)!.home),
           BottomNavigationBarItem(
-              icon: Icon(Icons.stacked_bar_chart), label: "Statistic"),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favorite"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+              icon: Icon(Icons.stacked_bar_chart), label: AppLocalizations.of(context)!.statistic),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label:AppLocalizations.of(context)!.favorite),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: AppLocalizations.of(context)!.profile),
         ],
       ),
     );

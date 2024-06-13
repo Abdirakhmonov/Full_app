@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/todo_model.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class ManageTodoDialog extends StatefulWidget {
   final Todo? todo;
   const ManageTodoDialog({
@@ -49,7 +49,7 @@ class _ManageTodoDialogState extends State<ManageTodoDialog> {
     return AlertDialog(
       scrollable: true,
       title: Text(
-        widget.todo != null ? "Vazifani tahrirlash" : "Vazifa qo'shish",
+        widget.todo != null ? AppLocalizations.of(context)!.addTask : AppLocalizations.of(context)!.editTask,
       ),
       content: Form(
         key: formKey,
@@ -58,9 +58,9 @@ class _ManageTodoDialogState extends State<ManageTodoDialog> {
           children: [
             TextFormField(
               initialValue: title,
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: "Vazifa nomi",
+                labelText: AppLocalizations.of(context)!.taskName,
               ),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
@@ -76,9 +76,9 @@ class _ManageTodoDialogState extends State<ManageTodoDialog> {
             const SizedBox(height: 10),
             TextFormField(
               initialValue: date,
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: "Vazifa vaqti",
+                labelText: AppLocalizations.of(context)!.taskDate,
               ),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
@@ -99,11 +99,11 @@ class _ManageTodoDialogState extends State<ManageTodoDialog> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text("Bekor qilish"),
+          child:  Text(AppLocalizations.of(context)!.cancel),
         ),
         FilledButton(
           onPressed: submit,
-          child: const Text("Saqlash"),
+          child:  Text(AppLocalizations.of(context)!.save),
         ),
       ],
     );

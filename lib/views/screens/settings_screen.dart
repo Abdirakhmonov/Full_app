@@ -1,8 +1,11 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:full_app/views/widgets/drawer_page.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/localizations_notifier.dart';
 import '../../providers/settings_notifier.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -23,15 +26,33 @@ class _SettingsPageState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final settingsNotifier = SettingsNotifier.of(context);
+    final localeController = Provider.of<LocaleController>(context);
+
     return Scaffold(
       drawer: const DrawerPage(),
       appBar: AppBar(
-        title: const Text(
-          "Settings",
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.settings,
+          style: const TextStyle(
             fontSize: 24,
           ),
         ),
+        actions: [
+          DropdownButton<Locale>(
+            value: localeController.locale,
+            onChanged: (Locale? newLocale) {
+              if (newLocale != null) {
+                localeController.setLocale(newLocale);
+              }
+            },
+            items: AppLocalizations.supportedLocales.map<DropdownMenuItem<Locale>>((Locale locale) {
+              return DropdownMenuItem<Locale>(
+                value: locale,
+                child: Text(locale.toString()),
+              );
+            }).toList(),
+          ),
+        ],
         centerTitle: true,
       ),
       body: Padding(
@@ -39,8 +60,11 @@ class _SettingsPageState extends State<SettingsScreen> {
         child: Column(
           children: [
             SwitchListTile(
-              title:
-                  toggle ? const Text("Night mode") : const Text("Light mode"),
+              title: toggle
+                  ? Text(
+                      AppLocalizations.of(context)!.nightMode,
+                    )
+                  : const Text("Light mode"),
               value: toggle,
               onChanged: (value) {
                 toggle = value;
@@ -49,7 +73,7 @@ class _SettingsPageState extends State<SettingsScreen> {
               },
             ),
             Text(
-              "Text Size:",
+              AppLocalizations.of(context)!.textSize,
               style: TextStyle(
                 fontSize: settingsNotifier.sizeText.size,
                 color: settingsNotifier.sizeText.color,

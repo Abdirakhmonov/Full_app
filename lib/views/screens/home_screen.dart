@@ -8,6 +8,7 @@ import '../../models/course_model.dart';
 import '../widgets/drawer_page.dart';
 import '../widgets/listview_container.dart';
 import 'notes_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   final Function(int) onItemTapped;
@@ -22,16 +23,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _courseViewModel = CourseViewModel();
-  bool _isViewStylePressed = false;
+  final bool _isViewStylePressed = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const DrawerPage(),
       appBar: AppBar(
-        title: const Text(
-          "Home Screen",
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        title: Text(
+          AppLocalizations.of(context)!.homeScreen,
+          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
@@ -52,25 +53,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                 onItemTapped: widget.onItemTapped,
                                 currentIndex: widget.currentIndex)));
                   },
-                  child: const Card(
+                  child: Card(
                     child: Center(
                         child: Text(
-                      "Todos",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                      AppLocalizations.of(context)!.todos,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 24),
                       textAlign: TextAlign.center,
                     )),
                   ),
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => NotesScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const NotesScreen()));
                   },
-                  child: const Card(
+                  child: Card(
                     child: Center(
-                        child: Text("Notes",
-                            style: TextStyle(
+                        child: Text(AppLocalizations.of(context)!.notes,
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 24))),
                   ),
                 )
@@ -126,12 +129,19 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedItemColor: Colors.green,
         unselectedItemColor: Colors.amber,
         onTap: widget.onItemTapped,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+        items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.stacked_bar_chart), label: "Statistic"),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favorite"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+              icon: const Icon(Icons.home),
+              label: AppLocalizations.of(context)!.home),
+          BottomNavigationBarItem(
+              icon: const Icon(Icons.stacked_bar_chart),
+              label: AppLocalizations.of(context)!.statistic),
+          BottomNavigationBarItem(
+              icon: const Icon(Icons.favorite),
+              label: AppLocalizations.of(context)!.favorite),
+          BottomNavigationBarItem(
+              icon: const Icon(Icons.person),
+              label: AppLocalizations.of(context)!.profile),
         ],
       ),
     );

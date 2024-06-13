@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/course_model.dart';
 import '../../utils/routes_utild.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomListViewBuilderContainer extends StatelessWidget {
   final bool isViewStylePressed;
@@ -32,7 +33,7 @@ class CustomListViewBuilderContainer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Course name: ${course.courseTitle}',
+                      '${AppLocalizations.of(context)!.courseName} ${course.courseTitle}',
                     ),
                     Text(
                         'Description:  ${course.courseDescription.split(' ')[0]}'),
@@ -48,7 +49,7 @@ class CustomListViewBuilderContainer extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Course name:  ${course.courseTitle}',
+                                '${AppLocalizations.of(context)!.courseName}  ${course.courseTitle}',
                                 style: const TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               ),

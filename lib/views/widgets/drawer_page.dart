@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:full_app/views/screens/main_page.dart';
 import 'package:full_app/views/screens/settings_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DrawerPage extends StatelessWidget {
   const DrawerPage({super.key});
@@ -75,9 +76,9 @@ class DrawerPage extends StatelessWidget {
                   ),
                 );
               },
-              child: const Text(
-                "Settings",
-                style: TextStyle(
+              child: Text(
+                AppLocalizations.of(context)!.settings,
+                style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -92,11 +93,12 @@ class DrawerPage extends StatelessWidget {
             padding: const EdgeInsets.only(right: 160),
             child: InkWell(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomePage()));
               },
-              child: const Text(
-                "Home Page",
-                style: TextStyle(
+              child: Text(
+                AppLocalizations.of(context)!.homepage,
+                style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,

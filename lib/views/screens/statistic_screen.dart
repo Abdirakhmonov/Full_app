@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../viewmodel/todo_viewmodel.dart';
 import '../widgets/drawer_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StatisticScreen extends StatefulWidget {
   final Function(int) onItemTapped;
@@ -49,21 +50,21 @@ class _StatisticScreenState extends State<StatisticScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Umumiy Takslar soni:  ${counts['total']}",
+                  "${AppLocalizations.of(context)!.totalTasks}  ${counts['total']}",
                   style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                       color: Colors.yellow),
                 ),
                 Text(
-                  "Bajarilgan vazifalar:  ${counts['completed']}",
+                  "${AppLocalizations.of(context)!.done}  ${counts['completed']}",
                   style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                       color: Colors.green),
                 ),
                 Text(
-                  "Bajarilmagan:  ${counts['notCompleted']}",
+                  "${AppLocalizations.of(context)!.notDone}  ${counts['notCompleted']}",
                   style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -79,12 +80,12 @@ class _StatisticScreenState extends State<StatisticScreen> {
         selectedItemColor: Colors.green,
         unselectedItemColor: Colors.amber,
         onTap: widget.onItemTapped,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+        items:  [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: AppLocalizations.of(context)!.home),
           BottomNavigationBarItem(
-              icon: Icon(Icons.stacked_bar_chart), label: "Statistic"),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favorite"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+              icon: Icon(Icons.stacked_bar_chart), label: AppLocalizations.of(context)!.statistic),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: AppLocalizations.of(context)!.favorite),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: AppLocalizations.of(context)!.profile),
         ],
       ),
     );
